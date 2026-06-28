@@ -257,7 +257,7 @@ ls ~/.config/sketchybar/.backup-demo-*/
 ## fastfetch — terminal system splash
 Themed to read as "the bar, in the terminal". Config: `~/.config/fastfetch/config.jsonc`.
 
-- **Logo** — the builtin `macos` apple recolored gruvbox via `logo.color` slots 1–6: cream `#ebdbb2` → yellow `#fabd2f` → orange `#fe8019`, top to bottom. No image asset, so nothing to break.
+- **Logo** — a 3D ASCII logo (`~/.config/fastfetch/cosmin.txt`), gradient cream `#ebdbb2` → yellow `#fabd2f` → orange `#fe8019` via the file's `$1`/`$2`/`$3` color markers. Pure ASCII → renders on any terminal. (A commented `kitty` image-logo block remains as an optional alternative.)
 - **Icon-key column** — every module's key is a single Nerd Font (MDI) glyph + a thin gray `│` + cream value. Same glyph-only language as the SketchyBar pills; key colors cycle the gruvbox accents per group (orange/yellow/aqua/blue/purple), echoing the starship rainbow segment order.
 - **Shows** — OS · host · kernel · uptime · brew packages · shell (zsh + starship) · **AeroSpace** version (pulled live by a `command` module running `aerospace --version`, so it never goes stale) · Ghostty · CPU · GPU · memory + **swap** (gruvbox meter bars `██████────`) · disk(`/`) · display (with monitor model) · default-route IP · battery · power adapter · padded date/time · palette swatch.
 - **Meters** — `display.percent` uses gruvbox green/yellow/red thresholds; bar chars `█`/`─`.
@@ -269,3 +269,9 @@ Themed to read as "the bar, in the terminal". Config: `~/.config/fastfetch/confi
 - **Optional image logo** — a commented `kitty` block sits in the config: drop a gruvbox-recolored ~600px PNG at `~/.config/fastfetch/logo.png`, comment the builtin block, uncomment the kitty one (Ghostty speaks the kitty graphics protocol). A missing/invalid PNG **silently** falls back to the *default rainbow* apple (not the gruvbox one) — so keep the builtin block until the PNG exists.
 
 Tweaks: add/remove a line → the `modules` array · recolor a key → its `keyColor` · run on shell start → add `fastfetch` to `~/.zshrc` (optional; not enabled, it slows every new shell).
+
+---
+
+## License
+
+[GPL-3.0](LICENSE) © 2026 Cosmin Ilie. Includes small snippets adapted from permissively-licensed projects (FelixKratz's SketchyBar demo, `sketchybar-app-font`, a starship preset) — their notices are retained.

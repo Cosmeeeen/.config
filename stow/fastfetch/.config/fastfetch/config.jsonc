@@ -23,12 +23,12 @@
   //   "padding": { "top": 1, "left": 2, "right": 4 }
   // },
   "logo": {
-    "type": "builtin",
-    "source": "macos",
+    "type": "file",
+    "source": "~/.config/fastfetch/cosmin.txt",
     "color": {
-      "1": "#ebdbb2", "2": "#ebdbb2",
-      "3": "#fabd2f", "4": "#fabd2f",
-      "5": "#fe8019", "6": "#fe8019"
+      "1": "#ebdbb2",
+      "2": "#fabd2f",
+      "3": "#fe8019"
     },
     "padding": { "top": 1, "left": 2, "right": 4 }
   },
