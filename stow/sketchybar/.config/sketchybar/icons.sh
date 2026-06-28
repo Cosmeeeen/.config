@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Icon glyphs as octal UTF-8 escapes (portable to bash 3.2). Comment shows codepoint.
+export ICON_APPLE=$(printf '\363\260\200\265')   # U+F0035
+export ICON_CPU=$(printf '\356\211\246')   # U+0E266
+export ICON_RAM=$(printf '\363\260\215\233')   # U+F035B
+export ICON_CLOCK=$(printf '\363\260\205\220')   # U+F0150
+export ICON_CALENDAR=$(printf '\363\260\203\255')   # U+F00ED
+export ICON_COG=$(printf '\363\260\222\223')   # U+F0493
+export ICON_MUSIC=$(printf '\363\260\216\207')   # U+F0387
+export ICON_CAFFEINE=$(printf '\363\260\205\266')   # U+F0176
+export ICON_CLAUDE_WAIT=$(printf '\363\260\203\236')   # U+F00DE
+export ICON_CLAUDE_DONE=$(printf '\363\260\227\240')   # U+F05E0
+export ICON_CLAUDE_WORK=$(printf '\363\260\232\251')   # U+F06A9
+export ICON_VPN=$(printf '\363\260\225\245')   # U+F0565
+export ICON_VPN_OFF=$(printf '\363\260\246\234')   # U+F099C
+export ICON_WIFI=$(printf '\363\260\226\251')   # U+F05A9
+export ICON_WIFI_OFF=$(printf '\363\260\226\252')   # U+F05AA
+export ICON_ETHERNET=$(printf '\363\260\210\200')   # U+F0200
+export ICON_NET_OFF=$(printf '\363\260\262\234')   # U+F0C9C
+export ICON_VOL_HI=$(printf '\363\260\225\276')   # U+F057E
+export ICON_VOL_MID=$(printf '\363\260\226\200')   # U+F0580
+export ICON_VOL_LO=$(printf '\363\260\225\277')   # U+F057F
+export ICON_VOL_MUTE=$(printf '\363\260\226\201')   # U+F0581
+export ICON_BAT_FULL=$(printf '\363\260\201\271')   # U+F0079
+export ICON_BAT_80=$(printf '\363\260\202\201')   # U+F0081
+export ICON_BAT_60=$(printf '\363\260\201\276')   # U+F007E
+export ICON_BAT_40=$(printf '\363\260\201\274')   # U+F007C
+export ICON_BAT_20=$(printf '\363\260\201\273')   # U+F007B
+export ICON_BAT_EMPTY=$(printf '\363\260\202\216')   # U+F008E
+export ICON_BAT_CHG=$(printf '\363\260\202\204')   # U+F0084

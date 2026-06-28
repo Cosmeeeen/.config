@@ -1,0 +1,16 @@
+# Personal identity is kept OUT of this tracked file. It lives in the gitignored
+# ~/.gitconfig.local (see .gitconfig.local.example); git pulls it in via the include below.
+[include]
+	path = ~/.gitconfig.local
+[core]
+	excludesfile = ~/.gitignore_global
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	line-numbers = true
+	true-color = always
+	syntax-theme = gruvbox-dark
+[merge]
+	conflictStyle = zdiff3

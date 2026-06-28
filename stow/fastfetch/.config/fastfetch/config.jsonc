@@ -1,0 +1,92 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+
+  // ──────────────────────────────────────────────────────────────
+  //  Gruvbox fastfetch — sibling of SketchyBar + starship.
+  //  Anchor: cream #ebdbb2 (active window border / focused pill).
+  //  Secondary accent: yellow #fabd2f (macOS accent). orange = starship lead.
+  //  Icon-only key column + thin gray │ divider = the bar's pills, in the terminal.
+  //  NOTE: fastfetch strips color when piped, so `fastfetch | cat` looks
+  //  (wrongly) colorless — judge it in a real Ghostty window.
+  // ──────────────────────────────────────────────────────────────
+
+  //  LOGO — builtin macOS apple recolored gruvbox (cream → yellow → orange).
+  //  Optional upgrade: drop a gruvbox-recolored ~600px PNG at the path below,
+  //  then comment this block and uncomment the kitty block. Ghostty speaks the
+  //  kitty graphics protocol. GOTCHA: a missing/invalid image path SILENTLY
+  //  falls back to the DEFAULT RAINBOW apple (not gruvbox), so keep this builtin
+  //  block as the safe default until the PNG exists.
+  // "logo": {
+  //   "type": "kitty",
+  //   "source": "~/.config/fastfetch/logo.png",
+  //   "width": 30, "height": 15, "preserveAspectRatio": true,
+  //   "padding": { "top": 1, "left": 2, "right": 4 }
+  // },
+  "logo": {
+    "type": "builtin",
+    "source": "macos",
+    "color": {
+      "1": "#ebdbb2", "2": "#ebdbb2",
+      "3": "#fabd2f", "4": "#fabd2f",
+      "5": "#fe8019", "6": "#fe8019"
+    },
+    "padding": { "top": 1, "left": 2, "right": 4 }
+  },
+
+  "display": {
+    "separator": " │ ",
+    "brightColor": false,
+    "color": {
+      "output": "38;2;235;219;178",
+      "separator": "38;2;146;131;116"
+    },
+    "percent": {
+      "type": ["num", "bar"],
+      "green": "38;2;184;187;38",
+      "yellow": "38;2;250;189;47",
+      "red": "38;2;251;73;52"
+    },
+    "bar": {
+      "border": { "left": "", "right": "" },
+      "char": { "elapsed": "█", "total": "─" },
+      "width": 10
+    }
+  },
+
+  "modules": [
+    { "type": "title", "color": { "user": "#ebdbb2", "at": "#928374", "host": "#ebdbb2" } },
+    { "type": "custom", "format": "────────────────────────", "outputColor": "38;2;146;131;116" },
+
+    { "type": "os",       "key": "󰀵", "keyColor": "#fe8019", "format": "{name} {codename} {version} {arch}" },
+    { "type": "host",     "key": "󰌢", "keyColor": "#fabd2f" },
+    { "type": "kernel",   "key": "󰡶", "keyColor": "#8ec07c" },
+    { "type": "uptime",   "key": "󰅐", "keyColor": "#83a598", "format": "{days}d {hours}h {minutes}m" },
+    { "type": "packages", "key": "󰏖", "keyColor": "#d3869b" },
+    { "type": "shell",    "key": "󰞷", "keyColor": "#fe8019", "format": "{pretty-name} {version} + starship" },
+
+    { "type": "break" },
+
+    { "type": "command",  "key": "󱂬", "keyColor": "#fabd2f", "text": "aerospace --version | awk 'NR==1{print \"AeroSpace \"$5}'" },
+    { "type": "terminal", "key": "󰆍", "keyColor": "#8ec07c", "format": "Ghostty" },
+
+    { "type": "break" },
+
+    { "type": "cpu",      "key": "󰓅", "keyColor": "#83a598", "format": "{name} ({9}) @ {freq-max}" },
+    { "type": "gpu",      "key": "󰢮", "keyColor": "#d3869b", "format": "{name} ({core-count})" },
+    { "type": "memory",   "key": "󰍛", "keyColor": "#fe8019" },
+    { "type": "swap",     "key": "󰓡", "keyColor": "#b8bb26" },
+    { "type": "disk",     "key": "󰓊", "keyColor": "#fabd2f", "folders": "/", "format": "{size-used} / {size-total}" },
+
+    { "type": "break" },
+
+    { "type": "display",  "key": "󰍹", "keyColor": "#8ec07c", "format": "{name} {width}x{height} @{refresh-rate}Hz" },
+    { "type": "localip",  "key": "󰩟", "keyColor": "#83a598", "defaultRouteOnly": true, "format": "{ifname} {ipv4}" },
+    { "type": "battery",  "key": "󰁹", "keyColor": "#d3869b", "format": "{capacity} [{status}]" },
+    { "type": "poweradapter", "key": "󰂄", "keyColor": "#fe8019" },
+    { "type": "datetime", "key": "󰃭", "keyColor": "#fabd2f", "format": "{year}-{month-pretty}-{day-pretty} {hour-pretty}:{minute-pretty}" },
+
+    { "type": "break" },
+
+    { "type": "colors", "symbol": "circle" }
+  ]
+}

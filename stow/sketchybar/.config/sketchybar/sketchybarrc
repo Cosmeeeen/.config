@@ -1,0 +1,154 @@
+#!/usr/bin/env bash
+# Gruvbox sketchybar config for aerospace. Docs: ~/projects/macos-ricing
+# Layout:  LEFT = window info | CENTER (notch-aware) = date/time | RIGHT = system
+
+CONFIG_DIR="$HOME/.config/sketchybar"
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+source "$CONFIG_DIR/colors.sh"
+source "$CONFIG_DIR/icons.sh"
+
+##### Bar #####
+# notch_width lets the q/e positions straddle the notch on the built-in display;
+# on external (notch-less) displays those items collapse back to the true center.
+sketchybar --bar \
+  position=top \
+  height=37 \
+  blur_radius=30 \
+  color=$BAR_COLOR \
+  padding_left=8 \
+  padding_right=8 \
+  corner_radius=0 \
+  notch_width=200 \
+  y_offset=0 \
+  margin=0
+
+##### Defaults #####
+default=(
+  padding_left=4
+  padding_right=4
+  icon.font="$NERD_FONT:Bold:15.0"
+  label.font="$NERD_FONT:Bold:13.0"
+  icon.color=$FG
+  label.color=$FG
+  icon.padding_left=6
+  icon.padding_right=4
+  label.padding_left=4
+  label.padding_right=6
+  background.height=26
+  background.corner_radius=6
+)
+sketchybar --default "${default[@]}"
+
+##### Events #####
+sketchybar --add event aerospace_workspace_change \
+           --add event aerospace_mode_change \
+           --add event claude_state_change
+
+##### LEFT: Aerospace workspaces (occupied + focused only) #####
+for sid in $(aerospace list-workspaces --all); do
+  sketchybar --add item space.$sid left \
+    --set space.$sid \
+      icon="$sid" \
+      icon.font="$NERD_FONT:Bold:14.0" \
+      icon.padding_left=9 \
+      icon.padding_right=4 \
+      label.font="$APP_FONT:Regular:15.0" \
+      label.padding_left=0 \
+      label.padding_right=9 \
+      label.drawing=off \
+      background.height=26 \
+      background.corner_radius=6 \
+      background.drawing=off \
+      drawing=off \
+      click_script="aerospace workspace $sid"
+done
+
+# Hidden observer drives all workspace pills on any relevant event + slow poll.
+sketchybar --add item space_observer left \
+  --set space_observer drawing=off updates=on \
+    update_freq=10 \
+    script="$PLUGIN_DIR/aerospace.sh" \
+  --subscribe space_observer aerospace_workspace_change front_app_switched
+
+##### LEFT: Aerospace mode (only visible outside 'main') #####
+sketchybar --add item aerospace_mode left \
+  --set aerospace_mode drawing=off icon.color=$RED label.color=$RED \
+    background.color=$BG1 background.drawing=on \
+    script="$PLUGIN_DIR/mode.sh" \
+  --subscribe aerospace_mode aerospace_mode_change
+
+##### LEFT: Front app (with app glyph) #####
+sketchybar --add item front_app left \
+  --set front_app \
+    icon.font="$APP_FONT:Regular:16.0" \
+    icon.padding_left=12 \
+    label.font="$NERD_FONT:Bold:13.0" \
+    script="$PLUGIN_DIR/front_app.sh" \
+  --subscribe front_app front_app_switched
+
+##### LEFT: Now playing #####
+sketchybar --add item media left \
+  --set media drawing=off update_freq=5 \
+    icon.color=$AQUA label.color=$FG4 \
+    icon.padding_left=12 \
+    script="$PLUGIN_DIR/media.sh"
+
+##### CENTER: date (left of notch) + time (right of notch) #####
+sketchybar --add item calendar q \
+  --set calendar update_freq=30 icon.drawing=off \
+    label.font="$NERD_FONT:Bold:11.0" label.color=$FG4 \
+    label.padding_left=8 label.padding_right=10 \
+    script="$PLUGIN_DIR/calendar.sh" \
+  --add item clock e \
+  --set clock update_freq=10 icon.drawing=off \
+    label.font="$NERD_FONT:Bold:16.0" label.color=$FG \
+    label.padding_left=10 label.padding_right=8 \
+    script="$PLUGIN_DIR/clock.sh"
+
+##### RIGHT: system status #####
+# Added right-to-left: battery is rightmost, cpu leftmost of the group.
+sketchybar --add item battery right \
+  --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
+  --subscribe battery system_woke power_source_change \
+  --add item volume right \
+  --set volume script="$PLUGIN_DIR/volume.sh" \
+  --subscribe volume volume_change \
+  --add item wifi right \
+  --set wifi update_freq=15 label.drawing=off icon.padding_left=8 icon.padding_right=8 \
+    script="$PLUGIN_DIR/wifi.sh" \
+  --subscribe wifi system_woke \
+  --add item tailscale right \
+  --set tailscale update_freq=30 label.drawing=off icon.padding_left=8 icon.padding_right=8 \
+    script="$PLUGIN_DIR/tailscale.sh" \
+  --subscribe tailscale system_woke \
+  --add item rgap right \
+  --set rgap icon.drawing=off label.drawing=off background.drawing=off \
+    padding_left=7 padding_right=7 \
+  --add item ram right \
+  --set ram update_freq=5 script="$PLUGIN_DIR/ram.sh" \
+  --add item cpu right \
+  --set cpu update_freq=3 script="$PLUGIN_DIR/cpu.sh"
+
+##### RIGHT: Caffeine indicator (only visible when caffeinate/Amphetamine active) #####
+sketchybar --add item caffeine right \
+  --set caffeine drawing=off updates=on update_freq=10 \
+    icon.color=$ORANGE icon.padding_left=8 icon.padding_right=8 label.drawing=off \
+    script="$PLUGIN_DIR/caffeine.sh" \
+  --subscribe caffeine system_woke
+
+##### RIGHT: Claude session status (needs-input / done / working; hidden when idle) #####
+sketchybar --add item claude right \
+  --set claude drawing=off updates=on update_freq=5 \
+    icon.padding_left=8 icon.padding_right=4 \
+    label.padding_left=0 label.padding_right=8 label.drawing=off \
+    script="$PLUGIN_DIR/claude.sh" \
+  --subscribe claude claude_state_change
+
+##### Brackets (rounded pill groups) #####
+sketchybar --add bracket sys_grp cpu ram \
+  --set sys_grp background.color=$ITEM_BG background.corner_radius=8 background.height=28 \
+  --add bracket status_grp tailscale wifi volume battery \
+  --set status_grp background.color=$ITEM_BG background.corner_radius=8 background.height=28
+
+##### Run all scripts once #####
+sketchybar --update

@@ -1,0 +1,5 @@
+# Copy to ~/.zshrc.local (chmod 600), then fill in real values.
+# ~/.zshrc sources this automatically; it is gitignored so secrets never get committed.
+
+# GitHub PAT used as the NPM token for a private GitHub-hosted npm package.
+# export NPM_TOKEN="your-github-pat-here"

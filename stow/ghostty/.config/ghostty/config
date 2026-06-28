@@ -1,0 +1,20 @@
+font-family = Hack Nerd Font Mono
+font-size = 16
+
+# Gruvbox to match the sketchybar / aerospace rice
+theme = Gruvbox Dark Hard
+background = 1d2021
+background-opacity = 0.85
+background-blur = 25
+
+keybind = cmd+ctrl+left=resize_split:left,64
+keybind = cmd+ctrl+right=resize_split:right,64
+keybind = cmd+ctrl+down=resize_split:down,64
+keybind = cmd+ctrl+up=resize_split:up,64
+
+macos-icon = glass
+macos-titlebar-style = tabs
+
+copy-on-select = clipboard
+clipboard-read = allow
+clipboard-write = allow

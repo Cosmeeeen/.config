@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Environment files
+.env
+.env.local
+
+# Logs
+*.log
+
+# Vim/nvim swap files
+*.swp
+*.swo
+
+**/.claude/settings.local.json

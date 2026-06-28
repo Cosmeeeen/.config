@@ -1,0 +1,5 @@
+# Copy to ~/.gitconfig.local and fill in your identity.
+# The tracked ~/.gitconfig includes this file, so your name/email stay untracked.
+[user]
+	name = Your Name
+	email = you@example.com

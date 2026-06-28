@@ -1,0 +1,25 @@
+# ── macOS noise ──
+.DS_Store
+**/.DS_Store
+
+# ── Machine-local secrets — NEVER commit ──
+# (real secrets live in ~/.zshrc.local etc., outside this repo;
+#  these patterns are belt-and-suspenders in case one lands here)
+*.local
+!*.local.example
+**/rclone.conf
+**/claude-pushover.env
+**/gh/hosts.yml
+*.pem
+*.key
+
+# ── Regenerable / external (bootstrap reinstalls these, not tracked) ──
+# tmux plugins — tpm reinstalls them
+stow/tmux/.config/tmux/plugins/
+# sketchybar pre-rice demo backup
+stow/sketchybar/.config/sketchybar/.backup-demo-*/
+# karabiner auto-saves
+stow/karabiner/.config/karabiner/automatic_backups/
+# stray editor/backup leftovers
+*.bak
+*.swp
